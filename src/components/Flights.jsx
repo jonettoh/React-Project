@@ -4,13 +4,13 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'
 
 
-const plane = new L.Icon({
+/*const plane = new L.Icon({
   iconUrl: require("../assets/plane.png"),
   iconSize:     [20, 20], 
   iconAnchor:   [0, 0], 
   popupAnchor:  [0, 0]
 });
-
+*/
 const departure = new L.Icon({
   iconUrl: require("../assets/departure.png"),
   iconSize:     [20, 20], 
@@ -32,23 +32,23 @@ const Flights = () => {
     
   const [flights, setFlights] = useState({});
   //planes info
-  const [planeinfo, setPlaneinfo] = useState({})
-  const planes = {}
+  //const [planeinfo, setPlaneinfo] = useState({})
+  //const planes = {}
   
-  
+  const [ws,setWs] = useState(new WebSocket("wss://tarea-1.2022-2.tallerdeintegracion.cl/connect")) 
   
 
   //websocket info
-  const [ws,setWs] = useState(new WebSocket("wss://tarea-1.2022-2.tallerdeintegracion.cl/connect"))  
+   
 //elementos del chat
-  const [message, setMessage] = useState("");
+  /*const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-
+*/
 
 
 
     useEffect(() => {
-  
+      
       //console.log("Created ws");
       ws.onopen = (event)=> {
         var obj = {
@@ -73,10 +73,10 @@ const Flights = () => {
                 case 'plane':
                   //console.log((!Object.keys(flight).includes(msg.plane.flight_id)))
                   //console.log(!Object.keys(planes).includes(msg.plane.flight_id))
-                  if (!Object.keys(planes).includes(msg.plane.flight_id)){
+                  /*if (!Object.keys(planes).includes(msg.plane.flight_id)){
                     planes[msg.plane.flight_id] = msg.plane;
                     setPlaneinfo(planes)
-                  }
+                  }*/
                 //console.log(planeinfo)
                   
                   //console.log(flight)
@@ -92,6 +92,8 @@ const Flights = () => {
                   break;
                 case 'chat':
                   break;
+                default:
+                  console.log('No meesage found')
               };
         };
       return () => { 
