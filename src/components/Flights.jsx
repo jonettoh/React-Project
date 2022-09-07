@@ -33,8 +33,8 @@ const Flights = () => {
   const [flights, setFlights] = useState({});
  
   //const [planeinfo, setPlaneinfo] = useState({})
-  /*const [planes, setPlanes] = useState({});
-  const handleChange = e => {
+  const [planes, setPlanes] = useState([]);
+  /*const handleChange = e => {
     const { name, value } = e.target;
     setPlanes(prevState => ({
         ...prevState,
@@ -77,7 +77,7 @@ const Flights = () => {
                     
                     //console.log(msg)
                     setFlights(msg.flights);
-                    setPlanes(msg.flights);
+                    setPlanes(Object.keys(flights));
                     
                   break;
                 case 'plane':
@@ -214,7 +214,7 @@ const Flights = () => {
           <div>
             {messages.length > 0 &&
               messages.map((element, index) =>{
-                return <p className= "mensajes"> {element[0]}: {element[1]} 
+                return <p key={index} className= "mensajes"> {element[0]}: {element[1]} 
                 <br/>{element[2]}
                 </p>
               }
