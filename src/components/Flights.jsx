@@ -31,7 +31,6 @@ const arrival = new L.Icon({
 const Flights = () => {
     
   const [flights, setFlights] = useState({});
-<<<<<<< HEAD
   //planes info
   const [planeinfo, setPlaneinfo] = useState({})
   const planes = {}
@@ -48,15 +47,6 @@ const Flights = () => {
 
 
 
-=======
-  const [flightskeys, setFlightskeys] = useState([]);
-  const [planes, setPlanes] = useState({});
-  const [ws,setWs] = useState(new WebSocket("wss://tarea-1.2022-2.tallerdeintegracion.cl/connect"))  
-//elementos del chat
-  const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
->>>>>>> 77ee2bfd38ed72cb488a5d4fbff083b906c58883
     useEffect(() => {
   
       //console.log("Created ws");
@@ -77,7 +67,6 @@ const Flights = () => {
                     
                     //console.log(msg)
                     setFlights(msg.flights);
-<<<<<<< HEAD
                     
                     
                   break;
@@ -92,13 +81,6 @@ const Flights = () => {
                   
                   //console.log(flight)
                   //setPlanes({...planes, msg.plane.flight_id : msg.plane })
-=======
-                    setFlightskeys(Object.keys(msg.flights));
-                    
-                  break;
-                case 'plane':
-                  //setPlanes()
->>>>>>> 77ee2bfd38ed72cb488a5d4fbff083b906c58883
                   break;
                 case 'take-off':
                   break;
@@ -155,7 +137,6 @@ const Flights = () => {
         </Marker>
       ))
     }
-<<<<<<< HEAD
   
   {/*Object.keys(flights).length > 0 && 
       Object.keys(flights).map( (element, index) => (
@@ -178,24 +159,6 @@ const Flights = () => {
                 key={index} ></Polyline>
                   ))
                 }
-=======
-
-{Object.keys(flights) > 0 && 
-      Object.keys(flights).map( (element, index) => (
-        <Polyline 
-        pathOptions={{color:'lime'}}
-        positions={[
-          [51.505, -0.09],
-          [51.51, -0.1],
-        /*[flights[element].departure.location.lat, flights[element].departure.location.long],
-        [flights[element].destination.location.lat, flights[element].destination.location.long],*/
-      ]} 
-        key={index} >
-
-        </Polyline>
-      ))
-    }
->>>>>>> 77ee2bfd38ed72cb488a5d4fbff083b906c58883
 
       </MapContainer>
     <table>
@@ -204,30 +167,17 @@ const Flights = () => {
         <th>Flight</th>
         <th>Origin</th>
         <th>Destination</th>
-<<<<<<< HEAD
         <th>Departure Date</th>
       </tr>
       </thead>
       <tbody>
       {Object.keys(flights).length > 0 && 
       Object.keys(flights).map( (element, index) => (
-=======
-        <th>ETA</th>
-      </tr>
-      </thead>
-      <tbody>
-      {flightskeys.length > 0 && 
-      flightskeys.map( (element, index) => (
->>>>>>> 77ee2bfd38ed72cb488a5d4fbff083b906c58883
         <tr key={index}> 
           <td>{flights[element].id}</td>
           <td>{flights[element].departure.city.name}</td>
           <td>{flights[element].destination.city.name}</td>
-<<<<<<< HEAD
           <td>{flights[element].departure_date}</td>
-=======
-          <td>{flights[element].id}</td>
->>>>>>> 77ee2bfd38ed72cb488a5d4fbff083b906c58883
         </tr>
 
       ))}
@@ -241,25 +191,3 @@ const Flights = () => {
 
 export default Flights;
 
-<<<<<<< HEAD
-
-=======
-/*
-
-{Object.keys(flights) > 0 && 
-      Object.keys(flights).map( (element, index) => (
-        <Polyline 
-        pathOptions={{color:'red'}}
-        positions={[
-        [flights[element].departure.location["lat"], flights[element].departure.location["long"]],
-        [flights[element].destination.location["lat"], flights[element].destination.location["long"]],
-      ]} 
-        key={index} >
-
-        </Polyline>
-      ))
-    }
-    
-    
-    */
->>>>>>> 77ee2bfd38ed72cb488a5d4fbff083b906c58883
