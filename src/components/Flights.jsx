@@ -31,19 +31,29 @@ const arrival = new L.Icon({
 const Flights = () => {
     
   const [flights, setFlights] = useState({});
-  //planes info
+ 
   //const [planeinfo, setPlaneinfo] = useState({})
-  //const planes = {}
-  
+  /*const [planes, setPlanes] = useState({});
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setPlanes(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+};*/
+
   const [ws,setWs] = useState(new WebSocket("wss://tarea-1.2022-2.tallerdeintegracion.cl/connect")) 
   
 
   //websocket info
    
 //elementos del chat
-  /*const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
-*/
+  const sendMessage = (msg) => {
+    const message = {type: "chat", content:msg};
+    ws.send(JSON.stringify(message));
+  }
 
 
 
@@ -67,10 +77,17 @@ const Flights = () => {
                     
                     //console.log(msg)
                     setFlights(msg.flights);
-                    
+                    setPlanes(msg.flights);
                     
                   break;
                 case 'plane':
+                  /*if (msg.plane.flight_id in Object.keys(flights)){
+                    setPlanes(prevState => ({
+                      ...prevState,
+                      msg["plane"].flight_id = {msg.plane} 
+                   }));
+                  }*/
+                  
                   //console.log((!Object.keys(flight).includes(msg.plane.flight_id)))
                   //console.log(!Object.keys(planes).includes(msg.plane.flight_id))
                   /*if (!Object.keys(planes).includes(msg.plane.flight_id)){
@@ -83,12 +100,19 @@ const Flights = () => {
                   //setPlanes({...planes, msg.plane.flight_id : msg.plane })
                   break;
                 case 'take-off':
+                  
                   break;
                 case 'landing':
                   break;
                 case 'crashed':
                   break;
                 case 'message':
+                  console.log(msg.message.content)
+                  messages.push([msg.message.name, msg.message.content,msg.message.date, msg.message.level]);
+                  if(messages.length > 8) {
+                    console.log(messages)
+                    setMessages(messages.slice(-8))
+                  }
                   break;
                 case 'chat':
                   break;
@@ -184,9 +208,43 @@ const Flights = () => {
 
       ))}
       </tbody>
-    
     </table>
           
+        <div className="chat">
+          <div>
+            {messages.length > 0 &&
+              messages.map((element, index) =>{
+                return <p className= "mensajes"> {element[0]}: {element[1]} 
+                <br/>{element[2]}
+                </p>
+              }
+              )
+
+            }
+          </div>
+          <div className="Btn">
+            <form
+            action = ""
+            onSubmit={e=>{
+              e.preventDefault();
+              sendMessage(message);
+              setMessage([]);
+            }}
+            >
+              <input
+              type="text"
+              className="textfield"
+              placeholder={'Send something'}
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+              />
+              <input type="submit" value={'Enviar'} className='send' />
+            </form>
+          </div>
+        </div>
+
+
+
         </div>       
   )
 }
